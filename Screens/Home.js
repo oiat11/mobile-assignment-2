@@ -19,6 +19,7 @@ function DietStack() {
         name="DietScreen"
         component={Diet}
         options={({ navigation }) => ({
+          title: 'Diet',
           headerRight: () => (
             <TouchableOpacity
               onPress={() => navigation.navigate('AddADiet')}
@@ -44,9 +45,10 @@ function ActivitiesStack() {
         name="ActivitiesScreen"
         component={Activities}
         options={({ navigation }) => ({
+          title: 'Activities',
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('AddAnActivity')}
+              onPress={() => navigation.navigate('Add An Activity')}
               style={{ marginRight: 10 }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -57,7 +59,7 @@ function ActivitiesStack() {
           ),
         })}
       />
-      <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
+      <Stack.Screen name="Add An Activity" component={AddAnActivity} />
     </Stack.Navigator>
   );
 }
@@ -78,8 +80,8 @@ export default function Home() {
         headerShown: false,
       })}
     >
-      <Tab.Screen name="Diet" component={DietStack} />
       <Tab.Screen name="Activities" component={ActivitiesStack} />
+      <Tab.Screen name="Diet" component={DietStack} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );

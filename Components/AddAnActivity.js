@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import ActivityType from './ActivityType';
 
 const AddAnActivity = () => {
   return (
     <View style={styles.container}>
-      <Text>Add An Activity</Text>
+      <ActivityType />
     </View>
   );
 }

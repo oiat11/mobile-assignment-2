@@ -16,7 +16,6 @@ export default function App() {
           component={Home}
           options={{ headerShown: false }}
         />
-        <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
       </Stack.Navigator>
       <StatusBar style="auto" />
     </NavigationContainer>
