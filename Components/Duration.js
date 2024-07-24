@@ -5,10 +5,9 @@ const Duration = () => {
 
     const [inputDuration, setInputDuration] = useState('');
   return (
-    <View>
-      <Text>Duration</Text>
+    <View >
+      <Text>Duration (min) *</Text>
       <TextInput
-        style={styles.input}
         value={inputDuration}
         onChangeText={setInputDuration}
         keyboardType="numeric"
@@ -17,16 +16,5 @@ const Duration = () => {
   );
 };
 
-const styles = StyleSheet.create({
-    input: {
-        height: 40,
-        borderColor: "black",
-        borderWidth: 1,
-        margin: 10,
-        padding: 10,
-        width: "100%",
-        borderRadius: 5,
-    },
-  });
 
 export default Duration;
