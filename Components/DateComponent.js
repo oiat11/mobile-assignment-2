@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const DateComponent = ({ date, setDate }) => {
@@ -7,10 +7,7 @@ const DateComponent = ({ date, setDate }) => {
 
   const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios'); 
-    if (Platform.OS !== 'ios') {
-      setShow(false); 
-    }
+    setShow(false); 
     setDate(currentDate);
   };
 
@@ -23,13 +20,13 @@ const DateComponent = ({ date, setDate }) => {
       <Text style={styles.label}>Date</Text>
       <TouchableOpacity onPress={toggleDatepicker}>
         <View style={styles.input}>
-          <Text>{date ? date.toLocaleDateString() : ''}</Text>
+          {date && <Text>{date.toLocaleDateString()}</Text>}
         </View>
       </TouchableOpacity>
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
-          value={date} 
+          value={date || new Date()} 
           mode="date"
           display="inline"
           onChange={onChange}

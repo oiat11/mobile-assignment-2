@@ -4,7 +4,7 @@ import ActivityType from './ActivityType';
 import Duration from './Duration';
 import DateComponent from './DateComponent';
 
-const AddAnActivity = () => {
+const AddAnActivity = ({ navigation }) => {
   const [activityType, setActivityType] = React.useState(null);
   const [duration, setDuration] = React.useState('');
   const [date, setDate] = React.useState(null);
@@ -12,8 +12,11 @@ const AddAnActivity = () => {
   const handleSave = () => {
     if (!activityType || !duration || !date) {
       Alert.alert('Error', 'Please fill out all fields');
+    } else if (isNaN(duration)) {
+      Alert.alert('Error', 'Duration must be a number');
     } else {
-      Alert.alert('Success', 'Activity saved');
+      const activityData = { activityType, duration, date };
+      navigation.goBack(); 
     }
   };
 
@@ -23,7 +26,7 @@ const AddAnActivity = () => {
       <Duration duration={duration} setDuration={setDuration} />
       <DateComponent date={date} setDate={setDate} />
       <View style={styles.buttonContainer}>
-        <Button title="Cancel" onPress={() => Alert.alert('Cancelled')} />
+        <Button title="Cancel" onPress={() => navigation.goBack()} />
         <Button title="Save" onPress={handleSave} />
       </View>
     </View>

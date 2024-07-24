@@ -48,7 +48,7 @@ function ActivitiesStack() {
           title: 'Activities',
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('Add An Activity')}
+              onPress={() => navigation.navigate('AddAnActivity')}
               style={{ marginRight: 10 }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -59,7 +59,7 @@ function ActivitiesStack() {
           ),
         })}
       />
-      <Stack.Screen name="Add An Activity" component={AddAnActivity} />
+      <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
     </Stack.Navigator>
   );
 }
