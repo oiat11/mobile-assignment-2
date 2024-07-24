@@ -16,37 +16,29 @@ const ActivityType = () => {
   ]);
 
   return (
-    <ScrollView contentContainerStyle={styles.scrollContainer}>
-      <View style={styles.container}>
-        <Text style={styles.label}>Activity *</Text>
-        <DropDownPicker
-          open={open}
-          value={value}
-          items={items}
-          setOpen={setOpen}
-          setValue={setValue}
-          setItems={setItems}
-          placeholder="Select an activity"
-          style={styles.dropdown}
-          dropDownContainerStyle={styles.dropdownContainer}
-          labelStyle={styles.dropdownLabel}
-          listMode="SCROLLVIEW"
-        />
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <Text style={styles.label}>Activity *</Text>
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        setValue={setValue}
+        setItems={setItems}
+        placeholder="Select an activity"
+        style={styles.dropdown}
+        dropDownContainerStyle={styles.dropdownContainer}
+        labelStyle={styles.dropdownLabel}
+        listMode="SCROLLVIEW"
+      />
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-    justifyContent: 'center',
-  },
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    padding: 16,
-    height: '100%',
+    marginBottom: 16,
+    width: '100%',
   },
   label: {
     marginBottom: 8,

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, Platform } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Platform } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
 const DateComponent = () => {
@@ -40,6 +40,7 @@ const DateComponent = () => {
 const styles = StyleSheet.create({
   container: {
     marginBottom: 16,
+    width: '100%',
   },
   label: {
     fontSize: 16,
@@ -48,10 +49,11 @@ const styles = StyleSheet.create({
   },
   input: {
     height: 40,
-    borderColor: 'gray',
+    borderColor: 'black',
     borderWidth: 1,
     justifyContent: 'center',
     paddingLeft: 10,
+    borderRadius: 5,
   },
 });
 
