@@ -15,8 +15,8 @@ const AddAnActivity = ({ navigation }) => {
     } else if (isNaN(duration)) {
       Alert.alert('Error', 'Duration must be a number');
     } else {
-      const activityData = { activityType, duration, date };
-      navigation.goBack(); 
+      const activityData = { activityType, duration, date: date.toISOString() }; 
+      navigation.navigate('ActivitiesScreen', { activityData }); 
     }
   };
 
