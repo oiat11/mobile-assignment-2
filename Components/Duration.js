@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 
-const Duration = () => {
-  const [inputDuration, setInputDuration] = useState('');
+const Duration = ({duration, setDuration}) => {
 
   return (
     <View style={styles.container}>
       <Text style={styles.label}>Duration (min) *</Text>
       <TextInput
         style={styles.input}
-        value={inputDuration}
-        onChangeText={setInputDuration}
+        value={duration}
+        onChangeText={setDuration}
         keyboardType="numeric"
       />
     </View>

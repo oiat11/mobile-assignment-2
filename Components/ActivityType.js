@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-const ActivityType = () => {
+const ActivityType = ( {activityType, setActivityType}) => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
   const [items, setItems] = useState([
     { label: 'Walking', value: 'walking' },
     { label: 'Running', value: 'running' },
@@ -20,10 +19,10 @@ const ActivityType = () => {
       <Text style={styles.label}>Activity *</Text>
       <DropDownPicker
         open={open}
-        value={value}
+        value={activityType}
         items={items}
         setOpen={setOpen}
-        setValue={setValue}
+        setValue={setActivityType}
         setItems={setItems}
         placeholder="Select an activity"
         style={styles.dropdown}
@@ -39,6 +38,7 @@ const styles = StyleSheet.create({
   container: {
     marginBottom: 16,
     width: '100%',
+    zIndex: 1000, 
   },
   label: {
     marginBottom: 8,
@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   },
   dropdownContainer: {
     maxHeight: 300, 
+    backgroundColor: '#fafafa',
   },
   dropdownLabel: {
     color: '#000',
