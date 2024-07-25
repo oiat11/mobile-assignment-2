@@ -4,10 +4,12 @@ import ActivityType from './ActivityType';
 import Duration from './Duration';
 import DateComponent from './DateComponent';
 
-const AddAnActivity = ({ navigation }) => {
+const AddAnActivity = ({ navigation, route }) => {
   const [activityType, setActivityType] = React.useState(null);
   const [duration, setDuration] = React.useState('');
   const [date, setDate] = React.useState(null);
+
+  const existingActivities = route.params?.activities || [];
 
   const handleSave = () => {
     if (!activityType || !duration || !date) {
@@ -15,8 +17,8 @@ const AddAnActivity = ({ navigation }) => {
     } else if (isNaN(duration)) {
       Alert.alert('Error', 'Duration must be a number');
     } else {
-      const activityData = { activityType, duration, date: date.toISOString() }; 
-      navigation.navigate('ActivitiesScreen', { activityData }); 
+      const newActivity = { activityType, duration, date: date.toISOString() }; 
+      navigation.navigate('ActivitiesScreen', { newActivity }); 
     }
   };
 

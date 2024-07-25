@@ -1,25 +1,19 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
+import ItemsList from '../Components/ItemsList';
 
 export default function Activities({ route }) {
-  const { activityData } = route.params || {};
+  const [activities, setActivities] = useState([]);
 
-  const activityDate = activityData ? new Date(activityData.date) : null; 
-
-  console.log(activityData); 
+  useEffect(() => {
+    if (route.params?.newActivity) {
+      setActivities((prevActivities) => [...prevActivities, route.params.newActivity]);
+    }
+  }, [route.params?.newActivity]);
 
   return (
     <View style={styles.container}>
-      <Text>Activities Screen</Text>
-      {activityData ? (
-        <View style={styles.activityContainer}>
-          <Text>Type: {activityData.activityType}</Text>
-          <Text>Duration: {activityData.duration} minutes</Text>
-          <Text>Date: {activityDate ? activityDate.toLocaleDateString() : 'No date available'}</Text>
-        </View>
-      ) : (
-        <Text>No activity data available</Text>
-      )}
+      <ItemsList items={activities} />
     </View>
   );
 }
@@ -29,12 +23,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  activityContainer: {
-    marginTop: 20,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 5,
   },
 });
