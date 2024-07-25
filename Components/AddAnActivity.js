@@ -18,7 +18,7 @@ const AddAnActivity = ({ navigation }) => {
     } else {
       const newActivity = { activityType, duration, date: date.toISOString() };
       try {
-        await writeToDB(newActivity); 
+        await writeToDB(newActivity, 'activities'); 
         Alert.alert('Success', 'Activity added successfully');
         navigation.navigate('ActivitiesScreen'); 
       } catch (error) {

@@ -1,19 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
+import { collection, onSnapshot } from 'firebase/firestore';
+import { database } from '../Firebase/firebaseSetup'; // Ensure correct import
 import ItemsList from '../Components/ItemsList';
 
 export default function Activities({ route }) {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
-    if (route.params?.newActivity) {
-      setActivities((prevActivities) => [...prevActivities, route.params.newActivity]);
-    }
-  }, [route.params?.newActivity]);
+    const unsubscribe = onSnapshot(collection(database, 'activities'), (querySnapshot) => {
+      const activitiesList = querySnapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data()
+      }));
+      setActivities(activitiesList);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   return (
     <View style={styles.container}>
-      <ItemsList items={activities} />
+      <FlatList
+        data={activities}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => <ItemsList item={item} />}
+      />
     </View>
   );
 }
@@ -21,7 +33,6 @@ export default function Activities({ route }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 16,
   },
 });
