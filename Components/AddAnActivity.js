@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, Button, Alert } from 'react-native';
+import { View, StyleSheet, Alert } from 'react-native';
 import ActivityType from './ActivityType';
 import Duration from './Duration';
 import DateComponent from './DateComponent';
-import { writeToDB } from '../Firebase/firestoreHelper'
+import CustomButton from './CustomButton';
+import { writeToDB } from '../Firebase/firestoreHelper';
 
 const AddAnActivity = ({ navigation }) => {
   const [activityType, setActivityType] = React.useState(null);
@@ -18,10 +19,11 @@ const AddAnActivity = ({ navigation }) => {
     } else {
       const newActivity = { activityType, duration, date: date.toISOString() };
       try {
-        await writeToDB(newActivity, 'activities'); 
+        await writeToDB(newActivity, 'activities');
         Alert.alert('Success', 'Activity added successfully');
-        navigation.navigate('ActivitiesScreen'); 
+        navigation.navigate('ActivitiesScreen');
       } catch (error) {
+        console.error('Error adding activity: ', error);
         Alert.alert('Error', 'There was an error adding the activity');
       }
     }
@@ -33,8 +35,8 @@ const AddAnActivity = ({ navigation }) => {
       <Duration duration={duration} setDuration={setDuration} />
       <DateComponent date={date} setDate={setDate} />
       <View style={styles.buttonContainer}>
-        <Button title="Cancel" onPress={() => navigation.goBack()} />
-        <Button title="Save" onPress={handleSave} />
+        <CustomButton title="Cancel" onPress={() => navigation.goBack()}  style={[styles.button, styles.cancelButton]} />
+        <CustomButton title="Save" onPress={handleSave} style={[styles.button, styles.saveButton]} />
       </View>
     </View>
   );
@@ -52,6 +54,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     width: '100%',
+  },
+  button: {
+    width: '40%',
+  },
+  cancelButton: {
+    backgroundColor: 'red',
+  },
+  saveButton: {
+    backgroundColor: 'blue',
   },
 });
 
