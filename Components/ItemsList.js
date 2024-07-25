@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 
 const ItemsList = ({ items }) => {
   const formatDate = (dateString) => {
@@ -11,17 +12,29 @@ const ItemsList = ({ items }) => {
   return (
     <View style={styles.container}>
       {items && items.length > 0 ? (
-        items.map((item, index) => (
-          <View key={index} style={styles.itemContainer}>
-            <Text>{item.activityType}</Text>
-            <View style={styles.dateContainer}>
-            <Text> {formatDate(item.date)}</Text>
-            </View>
-            <View style={styles.durationContainer}>
-            <Text>{item.duration} min</Text>
-            </View>
-          </View>
-        ))
+        items.map((item, index) => {
+          const isSpecial = item.duration > 60;
+          return (
+            <View key={index} style={styles.itemContainer}>
+              <Text style={styles.activityType}>{item.activityType}</Text>
+                {isSpecial && (
+                  <View style={styles.markContainer}>
+                    <FontAwesome 
+                      name="exclamation-triangle" 
+                      size={20} 
+                      color="yellow" 
+                    />
+                  </View>
+                )}
+                <View style={styles.dateContainer}>
+                  <Text>{formatDate(item.date)}</Text>
+                </View>
+                <View style={styles.durationContainer}>
+                  <Text>{item.duration} min</Text>
+                </View>
+              </View>
+          );
+        })
       ) : (
         <Text>No activities available</Text>
       )}
@@ -35,15 +48,22 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   itemContainer: {
-    flexDirection: 'row',
     marginBottom: 16,
     padding: 16,
     borderWidth: 1,
     borderColor: 'black',
     borderRadius: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  activityType: {
+    fontWeight: 'bold',
+  },
+  markContainer: {
+    paddingLeft: 16,
   },
   dateContainer: {
-    paddingLeft: 16,
+    paddingRight: 16,
   },
   durationContainer: {
     paddingLeft: 16,
