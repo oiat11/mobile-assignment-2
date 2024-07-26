@@ -9,3 +9,13 @@ export async function writeToDB(data, collectionName) {
         console.error('write to db ', err);
     }
 }
+
+export const updateInDB = async (data, collectionName, docId) => {
+    try {
+      const docRef = doc(database, collectionName, docId);
+      await updateDoc(docRef, data);
+      console.log("Document updated with ID: ", docId);
+    } catch (e) {
+      console.error("Error updating document: ", e);
+    }
+  }
