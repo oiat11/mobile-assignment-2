@@ -55,8 +55,8 @@ const AddADiet = ({ navigation, route }) => {
 
   const confirmSave = () => {
     Alert.alert(
-      'Save',
-      'Are you sure you want to save this diet?',
+      'Importent',
+      'Are you sure you want to save these change?',
       [
         { text: 'Cancel', style: 'cancel' },
         { text: 'OK', onPress: handleSave },

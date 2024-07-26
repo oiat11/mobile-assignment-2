@@ -55,8 +55,8 @@ const AddAnActivity = ({ navigation, route }) => {
 
   const confirmSave = () => {
     Alert.alert(
-      'Save',
-      'Are you sure you want to save this diet?',
+      'Importent',
+      'Are you sure you want to save these change?',
       [
         { text: 'Cancel', style: 'cancel' },
         { text: 'OK', onPress: handleSave },
@@ -64,7 +64,6 @@ const AddAnActivity = ({ navigation, route }) => {
       { cancelable: false }
     );
   };
-
 
   const handleDelete = async () => {
     try {
