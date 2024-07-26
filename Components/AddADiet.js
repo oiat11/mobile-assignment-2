@@ -13,7 +13,7 @@ const AddADiet = ({ navigation, route }) => {
   const [calories, setCalories] = useState(route?.params?.item?.calories || '');
   const [date, setDate] = useState(route?.params?.item?.date ? new Date(route.params.item.date) : null);
   const [isSpecial, setIsSpecial] = useState(route?.params?.item?.isSpecial || false);
-  const [tempIsSpecial, setTempIsSpecial] = useState(false); // Initial state is unchecked
+  const [showCheckbox, setShowCheckbox] = useState(route?.params?.item?.isSpecial || false); 
   const isEditing = !!route?.params?.item;
 
   useEffect(() => {
@@ -24,14 +24,19 @@ const AddADiet = ({ navigation, route }) => {
     }
   }, [calories]);
 
+  useEffect(() => {
+    if (isEditing && route?.params?.item?.isSpecial) {
+      setShowCheckbox(true);
+    }
+  } , [isEditing]);
+
   const handleSave = async () => {
     if (!description || !calories || !date) {
       Alert.alert('Error', 'Please fill out all fields');
     } else if (isNaN(calories)) {
       Alert.alert('Error', 'Calories must be a number');
     } else {
-      const specialStatus = isSpecial && !tempIsSpecial; 
-      const newDiet = { description, calories, date: date.toISOString(), isSpecial: specialStatus };
+      const newDiet = { description, calories, date: date.toISOString(), isSpecial };
       try {
         if (isEditing) {
           await updateInDB(newDiet, 'diets', route.params.item.id);
@@ -46,6 +51,18 @@ const AddADiet = ({ navigation, route }) => {
         Alert.alert('Error', 'There was an error saving the diet');
       }
     }
+  };
+
+  const confirmSave = () => {
+    Alert.alert(
+      'Save',
+      'Are you sure you want to save this diet?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'OK', onPress: handleSave },
+      ],
+      { cancelable: false }
+    );
   };
 
   const handleDelete = async () => {
@@ -95,19 +112,19 @@ const AddADiet = ({ navigation, route }) => {
       />
       <NumberInput label="Calories *" value={calories} onChange={setCalories} />
       <DateComponent date={date} setDate={setDate} />
-      {isEditing && isSpecial && (
+      {isEditing && showCheckbox && (
         <View style={styles.checkboxContainer}>
           <Text style={styles.label}>
             This item is marked as special. Select the checkbox if you want to mark it as not special.
           </Text>
           <Checkbox
-            value={tempIsSpecial}
-            onValueChange={setTempIsSpecial}
+            value={!isSpecial}
+            onValueChange={() => setIsSpecial(!isSpecial)}
             style={styles.checkbox}
           />
         </View>
       )}
-      <ActionButtons onCancel={() => navigation.goBack()} onSave={handleSave} />
+      <ActionButtons onCancel={() => navigation.goBack()} onSave={isEditing ? confirmSave : handleSave} />
     </View>
   );
 };
