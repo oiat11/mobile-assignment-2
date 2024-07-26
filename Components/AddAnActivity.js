@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, Button, TouchableOpacity, Text } from 'react-native';
 import ActivityType from './ActivityType';
 import DateComponent from './DateComponent';
 import ActionButtons from './ActionButtons';
 import NumberInput from '../Components/NumberInput'; 
-import { writeToDB, updateInDB } from '../Firebase/firestoreHelper';
+import { writeToDB, updateInDB, deleteDocument } from '../Firebase/firestoreHelper';
+import { FontAwesome } from '@expo/vector-icons';
 
 const AddAnActivity = ({ navigation, route }) => {
-  const [activityType, setActivityType] = useState(route?.params?.item?.activityType || null);
+  const [activityType, setActivityType] = useState(route?.params?.item?.activityType || '');
   const [duration, setDuration] = useState(route?.params?.item?.duration || '');
   const [date, setDate] = useState(route?.params?.item?.date ? new Date(route.params.item.date) : null);
   const isEditing = !!route?.params?.item;
@@ -34,6 +35,32 @@ const AddAnActivity = ({ navigation, route }) => {
       }
     }
   };
+
+  const handleDelete = async () => {
+    try {
+      await deleteDocument('activities', route.params.item.id);
+      Alert.alert('Success', 'Activity deleted successfully');
+      navigation.navigate('ActivitiesScreen');
+    } catch (error) {
+      console.error('Error deleting activity: ', error);
+      Alert.alert('Error', 'There was an error deleting the activity');
+    }
+  };
+
+  React.useLayoutEffect(() => {
+    if (isEditing) {
+      navigation.setOptions({
+        title: 'Edit',
+        headerRight: () => (
+          <TouchableOpacity onPress={handleDelete} style={{ marginRight: 10 }}>
+            <FontAwesome name="trash-o" size={24} color="black" />
+          </TouchableOpacity>
+        ),
+      });
+    } else {
+      navigation.setOptions({ title: 'Add Activity' });
+    }
+  }, [navigation, isEditing]);
 
   return (
     <View style={styles.container}>

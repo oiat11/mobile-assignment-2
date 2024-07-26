@@ -19,14 +19,14 @@ const ItemsList = ({ item, navigation }) => {
   return (
     <Pressable onPress={handlePress}>
       <View style={styles.itemContainer}>
-        <Text style={styles.activityType}>{item.activityType || 'Diet'}</Text>
+        {item.activityType && <Text style={styles.activityType}>{item.activityType}</Text>}
+        {item.description && <Text style={styles.descriptionText}>{item.description}</Text>}
         {isSpecial && (
           <FontAwesome name="exclamation-triangle" size={20} color="yellow" style={styles.icon} />
         )}
         <Text style={styles.dateText}>{formatDate(item.date)}</Text>
         {item.duration && <Text style={styles.durationText}>{item.duration} min</Text>}
         {item.calories && <Text style={styles.durationText}>{item.calories} kcal</Text>}
-        {item.description && <Text style={styles.descriptionText}>{item.description}</Text>}
       </View>
     </Pressable>
   );
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 8,
   },
   descriptionText: {
-    marginHorizontal: 8,
+    fontWeight: 'bold',
     flex: 1,
   },
   icon: {

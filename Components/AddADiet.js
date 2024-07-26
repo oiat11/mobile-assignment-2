@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, Button, TouchableOpacity, Text } from 'react-native';
 import CustomTextInput from '../Components/CustomTextInput';
 import NumberInput from '../Components/NumberInput';
 import DateComponent from '../Components/DateComponent';
 import ActionButtons from '../Components/ActionButtons';
-import { writeToDB, updateInDB } from '../Firebase/firestoreHelper';
+import { writeToDB, updateInDB, deleteDocument } from '../Firebase/firestoreHelper';
+import { FontAwesome } from '@expo/vector-icons';
 
 const AddADiet = ({ navigation, route }) => {
   const [description, setDescription] = useState(route?.params?.item?.description || '');
@@ -34,6 +35,32 @@ const AddADiet = ({ navigation, route }) => {
       }
     }
   };
+
+  const handleDelete = async () => {
+    try {
+      await deleteDocument('diets', route.params.item.id);
+      Alert.alert('Success', 'Diet deleted successfully');
+      navigation.navigate('DietScreen');
+    } catch (error) {
+      console.error('Error deleting diet: ', error);
+      Alert.alert('Error', 'There was an error deleting the diet');
+    }
+  };
+
+  React.useLayoutEffect(() => {
+    if (isEditing) {
+      navigation.setOptions({
+        title: 'Edit',
+        headerRight: () => (
+          <TouchableOpacity onPress={handleDelete} style={{ marginRight: 10 }}>
+            <FontAwesome name="trash-o" size={24} color="black" />
+          </TouchableOpacity>
+        ),
+      });
+    } else {
+      navigation.setOptions({ title: 'Add Diet' });
+    }
+  }, [navigation, isEditing]);
 
   return (
     <View style={styles.container}>
