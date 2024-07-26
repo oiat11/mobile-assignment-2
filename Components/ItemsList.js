@@ -11,6 +11,7 @@ const ItemsList = ({ item, navigation }) => {
     return date.toLocaleDateString('en-US', options);
   };
 
+  // Add a handlePress function that navigates to the EditAnActivity screen if the item has an activityType property, or to the EditADiet screen if it doesn't.
   const handlePress = () => {
     const screen = item.activityType ? 'EditAnActivity' : 'EditADiet';
     navigation.navigate(screen, { item });

@@ -10,6 +10,7 @@ export const ThemeProvider = ({ children }) => {
     header: colors.persianGreen, 
   });
 
+  // Toggle the header color between persianGreen and shamrockGreen
   const toggleTheme = () => {
     setTheme((prevTheme) => ({
       ...prevTheme,

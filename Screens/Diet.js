@@ -8,6 +8,7 @@ import { commonStyles } from '../Components/styles';
 export default function Diet({ navigation }) {
   const [diets, setDiets] = useState([]);
 
+  // Fetch diets from Firestore
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(database, 'diets'), (querySnapshot) => {
       const dietsList = querySnapshot.docs.map(doc => ({

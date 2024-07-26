@@ -127,7 +127,7 @@ export const commonStyles = StyleSheet.create({
     marginBottom: spacing.medium,
   },
   label: {
-    fontSize: typography.fontSizeMedium,
+    fontSize: typography.fontSizeSmall,
     marginLeft: spacing.small,
     flex: 1,
   },

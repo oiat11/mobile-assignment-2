@@ -18,6 +18,7 @@ const AddAnActivity = ({ navigation, route }) => {
   const [showCheckbox, setShowCheckbox] = useState(route?.params?.item?.isSpecial || false); 
   const isEditing = !!route?.params?.item;
 
+  // condition to check if duration is greater than 100
   useEffect(() => {
     if (duration > 100) {
       setIsSpecial(true);
@@ -26,6 +27,7 @@ const AddAnActivity = ({ navigation, route }) => {
     }
   }, [duration]);
 
+  // condition to check if the item is special
   useEffect(() => {
     if (isEditing && route?.params?.item?.isSpecial) {
       setShowCheckbox(true);
@@ -90,6 +92,7 @@ const AddAnActivity = ({ navigation, route }) => {
     );
   };
 
+  // condition to check if the item is being edited
   React.useLayoutEffect(() => {
     if (isEditing) {
       navigation.setOptions({
@@ -110,6 +113,7 @@ const AddAnActivity = ({ navigation, route }) => {
       <ActivityType activityType={activityType} setActivityType={setActivityType} />
       <NumberInput label="Duration (min) *" value={duration} onChange={setDuration} />
       <DateComponent date={date} setDate={setDate} />
+      {/* condition to check if the item is being edited and if the checkbox should be shown */}
       {isEditing && showCheckbox && (
         <View style={commonStyles.checkboxContainer}>
           <Text style={commonStyles.label}>

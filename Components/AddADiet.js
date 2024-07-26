@@ -18,6 +18,7 @@ const AddADiet = ({ navigation, route }) => {
   const [showCheckbox, setShowCheckbox] = useState(route?.params?.item?.isSpecial || false); 
   const isEditing = !!route?.params?.item;
 
+  // condition to check if calories are greater than 800
   useEffect(() => {
     if (calories > 800) {
       setIsSpecial(true);
@@ -26,6 +27,7 @@ const AddADiet = ({ navigation, route }) => {
     }
   }, [calories]);
 
+  // condition to check if the item is special
   useEffect(() => {
     if (isEditing && route?.params?.item?.isSpecial) {
       setShowCheckbox(true);
@@ -90,6 +92,7 @@ const AddADiet = ({ navigation, route }) => {
     );
   };
 
+  // set the header title and right button
   React.useLayoutEffect(() => {
     if (isEditing) {
       navigation.setOptions({
@@ -114,6 +117,7 @@ const AddADiet = ({ navigation, route }) => {
       />
       <NumberInput label="Calories *" value={calories} onChange={setCalories} />
       <DateComponent date={date} setDate={setDate} />
+      {/* show the checkbox if the item is special and is being edited */}
       {isEditing && showCheckbox && (
         <View style={commonStyles.checkboxContainer}>
           <Text style={commonStyles.label}>
