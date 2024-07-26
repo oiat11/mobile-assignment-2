@@ -7,7 +7,8 @@ import Activities from './Activities';
 import Settings from './Settings'; 
 import AddAnActivity from '../Components/AddAnActivity';
 import AddADiet from '../Components/AddADiet'; 
-import { TouchableOpacity, View, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import CustomPressable from '../Components/CustomPressable'; // 确保路径正确
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -21,7 +22,7 @@ function DietStack() {
         options={({ navigation }) => ({
           title: 'Diet',
           headerRight: () => (
-            <TouchableOpacity
+            <CustomPressable
               onPress={() => navigation.navigate('AddADiet')}
               style={{ marginRight: 10 }}
             >
@@ -29,7 +30,7 @@ function DietStack() {
                 <Entypo name="plus" size={24} color="black" />
                 <MaterialIcons name="fastfood" size={24} color="black" />
               </View>
-            </TouchableOpacity>
+            </CustomPressable>
           ),
         })}
       />
@@ -52,7 +53,7 @@ function ActivitiesStack() {
         options={({ navigation }) => ({
           title: 'Activities',
           headerRight: () => (
-            <TouchableOpacity
+            <CustomPressable
               onPress={() => navigation.navigate('AddAnActivity')}
               style={{ marginRight: 10 }}
             >
@@ -60,7 +61,7 @@ function ActivitiesStack() {
                 <Entypo name="plus" size={24} color="black" />
                 <FontAwesome name="gear" size={24} color="black" />
               </View>
-            </TouchableOpacity>
+            </CustomPressable>
           ),
         })}
       />

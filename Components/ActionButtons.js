@@ -1,31 +1,24 @@
 import React from 'react';
-import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import CustomPressable from './CustomPressable';
 
 const ActionButtons = ({ onCancel, onSave }) => {
   return (
     <View style={styles.buttonContainer}>
-      <Pressable
+      <CustomPressable
         onPress={onCancel}
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? '#ddd' : 'red',
-          },
-          styles.button,
-        ]}
+        style={styles.buttonCancel}
+        pressedStyle={styles.buttonPressed}
       >
         <Text style={styles.text}>Cancel</Text>
-      </Pressable>
-      <Pressable
+      </CustomPressable>
+      <CustomPressable
         onPress={onSave}
-        style={({ pressed }) => [
-          {
-            backgroundColor: pressed ? '#ddd' : 'blue',
-          },
-          styles.button,
-        ]}
+        style={styles.buttonSave}
+        pressedStyle={styles.buttonPressed}
       >
         <Text style={styles.text}>Save</Text>
-      </Pressable>
+      </CustomPressable>
     </View>
   );
 };
@@ -37,11 +30,22 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 16,
   },
-  button: {
+  buttonCancel: {
+    backgroundColor: 'red',
+    width: '45%', 
+    alignItems: 'center',
     padding: 10,
     borderRadius: 5,
+  },
+  buttonSave: {
+    backgroundColor: 'blue',
+    width: '45%', 
     alignItems: 'center',
-    width: '40%',
+    padding: 10,
+    borderRadius: 5,
+  },
+  buttonPressed: {
+    backgroundColor: '#ddd',
   },
   text: {
     color: 'white',

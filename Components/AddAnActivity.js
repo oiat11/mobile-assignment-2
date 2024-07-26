@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Alert, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Alert, Text } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { FontAwesome } from '@expo/vector-icons';
 import ActivityType from './ActivityType';
@@ -7,6 +7,7 @@ import DateComponent from './DateComponent';
 import ActionButtons from './ActionButtons';
 import NumberInput from './NumberInput';
 import { writeToDB, updateInDB, deleteDocument } from '../Firebase/firestoreHelper';
+import CustomPressable from './CustomPressable';
 
 const AddAnActivity = ({ navigation, route }) => {
   const [activityType, setActivityType] = useState(route?.params?.item?.activityType || '');
@@ -93,9 +94,9 @@ const AddAnActivity = ({ navigation, route }) => {
       navigation.setOptions({
         title: 'Edit',
         headerRight: () => (
-          <TouchableOpacity onPress={confirmDelete} style={{ marginRight: 10 }}>
+          <CustomPressable onPress={confirmDelete} style={{ marginRight: 10 }}>
             <FontAwesome name="trash-o" size={24} color="black" />
-          </TouchableOpacity>
+          </CustomPressable>
         ),
       });
     } else {

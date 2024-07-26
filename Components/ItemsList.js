@@ -1,6 +1,7 @@
 import React from 'react';
-import { View, Text, StyleSheet, Pressable, navigation } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
+import CustomPressable from './CustomPressable';
 
 const ItemsList = ({ item, navigation }) => {
   const formatDate = (dateString) => {
@@ -15,7 +16,7 @@ const ItemsList = ({ item, navigation }) => {
   };
 
   return (
-    <Pressable onPress={handlePress}>
+    <CustomPressable onPress={handlePress} style={styles.pressable} pressedStyle={styles.pressedStyle}>
       <View style={styles.itemContainer}>
         {item.activityType && <Text style={styles.activityType}>{item.activityType}</Text>}
         {item.description && <Text style={styles.descriptionText}>{item.description}</Text>}
@@ -26,13 +27,18 @@ const ItemsList = ({ item, navigation }) => {
         {item.duration && <Text style={styles.durationText}>{item.duration} min</Text>}
         {item.calories && <Text style={styles.durationText}>{item.calories} kcal</Text>}
       </View>
-    </Pressable>
+    </CustomPressable>
   );
 };
 
 const styles = StyleSheet.create({
+  pressable: {
+    borderRadius: 5,
+  },
+  pressedStyle: {
+    backgroundColor: '#ddd',
+  },
   itemContainer: {
-    marginBottom: 16,
     padding: 16,
     borderWidth: 1,
     borderColor: 'black',

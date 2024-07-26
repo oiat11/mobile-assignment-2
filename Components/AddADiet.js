@@ -7,6 +7,7 @@ import DateComponent from '../Components/DateComponent';
 import ActionButtons from '../Components/ActionButtons';
 import { writeToDB, updateInDB, deleteDocument } from '../Firebase/firestoreHelper';
 import Checkbox from 'expo-checkbox';
+import CustomPressable from '../Components/CustomPressable';
 
 const AddADiet = ({ navigation, route }) => {
   const [description, setDescription] = useState(route?.params?.item?.description || '');
@@ -93,9 +94,9 @@ const AddADiet = ({ navigation, route }) => {
       navigation.setOptions({
         title: 'Edit',
         headerRight: () => (
-          <TouchableOpacity onPress={confirmDelete} style={{ marginRight: 10 }}>
+          <CustomPressable onPress={confirmDelete} style={{ marginRight: 10 }}>
             <FontAwesome name="trash-o" size={24} color="black" />
-          </TouchableOpacity>
+          </CustomPressable>
         ),
       });
     } else {
