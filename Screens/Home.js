@@ -22,7 +22,7 @@ function DietStack() {
           title: 'Diet',
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('AddADiet')}
+              onPress={() => navigation.navigate('Add A Diet')}
               style={{ marginRight: 10 }}
             >
               <View style={styles.addButton}>
@@ -33,7 +33,7 @@ function DietStack() {
           ),
         })}
       />
-      <Stack.Screen name="AddADiet" component={AddADiet} />
+      <Stack.Screen name="Add A Diet" component={AddADiet} />
     </Stack.Navigator>
   );
 }
@@ -48,7 +48,7 @@ function ActivitiesStack() {
           title: 'Activities',
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('AddAnActivity')}
+              onPress={() => navigation.navigate('Add An Activity')}
               style={{ marginRight: 10 }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -59,7 +59,7 @@ function ActivitiesStack() {
           ),
         })}
       />
-      <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
+      <Stack.Screen name="Add An Activity" component={AddAnActivity} />
     </Stack.Navigator>
   );
 }
