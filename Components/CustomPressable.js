@@ -1,5 +1,6 @@
 import React from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, View, StyleSheet } from 'react-native';
+import { commonStyles } from './styles';
 
 const CustomPressable = ({ onPress, children, style, pressedStyle }) => {
   return (
@@ -7,25 +8,16 @@ const CustomPressable = ({ onPress, children, style, pressedStyle }) => {
       onPress={onPress}
       android_ripple={{ color: 'rgba(0, 0, 0, 0.2)' }}
       style={({ pressed }) => [
-        styles.pressable,
+        commonStyles.pressable,
         style,
-        pressed && styles.pressed,
         pressed && pressedStyle,
       ]}
     >
-      {children}
+      <View style={commonStyles.contentContainer}>
+        {children}
+      </View>
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  pressable: {
-    padding: 10,
-    borderRadius: 5,
-  },
-  pressed: {
-    opacity: 0.7,
-  },
-});
 
 export default CustomPressable;

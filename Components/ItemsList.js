@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import CustomPressable from './CustomPressable';
+import { commonStyles, colors } from '../Components/styles';
 
 const ItemsList = ({ item, navigation }) => {
   const formatDate = (dateString) => {
@@ -16,53 +17,19 @@ const ItemsList = ({ item, navigation }) => {
   };
 
   return (
-    <CustomPressable onPress={handlePress} style={styles.pressable} pressedStyle={styles.pressedStyle}>
-      <View style={styles.itemContainer}>
-        {item.activityType && <Text style={styles.activityType}>{item.activityType}</Text>}
-        {item.description && <Text style={styles.descriptionText}>{item.description}</Text>}
+    <CustomPressable onPress={handlePress} style={commonStyles.itemContainer} pressedStyle={commonStyles.pressedStyle}>
+      <View style={commonStyles.contentContainer}>
+        {item.activityType && <Text style={commonStyles.activityType}>{item.activityType}</Text>}
+        {item.description && <Text style={commonStyles.descriptionText}>{item.description}</Text>}
         {item.isSpecial && (
-          <FontAwesome name="exclamation-triangle" size={20} color="yellow" style={styles.icon} />
+          <FontAwesome name="exclamation-triangle" size={20} color={colors.yellow} style={commonStyles.icon} />
         )}
-        <Text style={styles.dateText}>{formatDate(item.date)}</Text>
-        {item.duration && <Text style={styles.durationText}>{item.duration} min</Text>}
-        {item.calories && <Text style={styles.durationText}>{item.calories} kcal</Text>}
+        <Text style={commonStyles.dateText}>{formatDate(item.date)}</Text>
+        {item.duration && <Text style={commonStyles.durationText}>{item.duration} min</Text>}
+        {item.calories && <Text style={commonStyles.durationText}>{item.calories} kcal</Text>}
       </View>
     </CustomPressable>
   );
 };
-
-const styles = StyleSheet.create({
-  pressable: {
-    borderRadius: 5,
-  },
-  pressedStyle: {
-    backgroundColor: '#ddd',
-  },
-  itemContainer: {
-    padding: 16,
-    borderWidth: 1,
-    borderColor: 'black',
-    borderRadius: 5,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  activityType: {
-    fontWeight: 'bold',
-    flex: 1,
-  },
-  dateText: {
-    marginHorizontal: 8,
-  },
-  durationText: {
-    marginHorizontal: 8,
-  },
-  descriptionText: {
-    fontWeight: 'bold',
-    flex: 1,
-  },
-  icon: {
-    marginHorizontal: 8,
-  },
-});
 
 export default ItemsList;
