@@ -14,6 +14,7 @@ import { commonStyles, colors } from '../Components/styles';
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
+// Add a DietStack component that returns a Stack.Navigator with the Diet screen as the initial screen, and AddADiet and EditADiet screens as additional screens.
 function DietStack() {
   const { theme } = useTheme();
   return (
@@ -108,6 +109,7 @@ function SettingsStack() {
   );
 }
 
+// Add a Home component that returns a Tab.Navigator with the Activities, Diet, and Settings screens as tabs.
 export default function Home() {
   const { theme } = useTheme();
   return (

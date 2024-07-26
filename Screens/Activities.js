@@ -8,6 +8,7 @@ import { commonStyles } from '../Components/styles';
 export default function Activities({ navigation }) {
   const [activities, setActivities] = useState([]);
 
+  // Fetch activities from Firestore
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(database, 'activities'), (querySnapshot) => {
       const activitiesList = querySnapshot.docs.map(doc => ({

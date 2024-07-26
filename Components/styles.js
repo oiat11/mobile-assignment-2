@@ -108,7 +108,7 @@ export const commonStyles = StyleSheet.create({
   },
   dropdownLabel: {
     marginBottom: spacing.small,
-    fontSize: typography.fontSizeMedium,
+    fontSize: typography.fontSizeSmall,
     fontWeight: typography.fontWeightBold,
   },
   dropdown: {
@@ -140,7 +140,7 @@ export const commonStyles = StyleSheet.create({
     width: '100%',
   },
   dateLabel: {
-    fontSize: typography.fontSizeMedium,
+    fontSize: typography.fontSizeSmall,
     fontWeight: typography.fontWeightBold,
     marginBottom: spacing.small,
   },
@@ -157,7 +157,7 @@ export const commonStyles = StyleSheet.create({
     width: '100%',
   },
   inputLabel: {
-    fontSize: typography.fontSizeMedium,
+    fontSize: typography.fontSizeSmall,
     fontWeight: typography.fontWeightBold,
     marginBottom: spacing.small,
   },
