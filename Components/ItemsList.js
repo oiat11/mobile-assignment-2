@@ -9,8 +9,6 @@ const ItemsList = ({ item, navigation }) => {
     return date.toLocaleDateString('en-US', options);
   };
 
-  const isSpecial = item.duration > 60 || (item.calories && item.calories > 800);
-
   const handlePress = () => {
     const screen = item.activityType ? 'EditAnActivity' : 'EditADiet';
     navigation.navigate(screen, { item });
@@ -21,7 +19,7 @@ const ItemsList = ({ item, navigation }) => {
       <View style={styles.itemContainer}>
         {item.activityType && <Text style={styles.activityType}>{item.activityType}</Text>}
         {item.description && <Text style={styles.descriptionText}>{item.description}</Text>}
-        {isSpecial && (
+        {item.isSpecial && (
           <FontAwesome name="exclamation-triangle" size={20} color="yellow" style={styles.icon} />
         )}
         <Text style={styles.dateText}>{formatDate(item.date)}</Text>

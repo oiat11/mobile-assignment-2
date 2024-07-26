@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Alert, TouchableOpacity, Text } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import CustomTextInput from '../Components/CustomTextInput';
 import NumberInput from '../Components/NumberInput';
 import DateComponent from '../Components/DateComponent';
 import ActionButtons from '../Components/ActionButtons';
 import { writeToDB, updateInDB, deleteDocument } from '../Firebase/firestoreHelper';
+import Checkbox from 'expo-checkbox';
 
 const AddADiet = ({ navigation, route }) => {
   const [description, setDescription] = useState(route?.params?.item?.description || '');
   const [calories, setCalories] = useState(route?.params?.item?.calories || '');
   const [date, setDate] = useState(route?.params?.item?.date ? new Date(route.params.item.date) : null);
+  const [isSpecial, setIsSpecial] = useState(route?.params?.item?.isSpecial || false);
+  const [tempIsSpecial, setTempIsSpecial] = useState(false); // Initial state is unchecked
   const isEditing = !!route?.params?.item;
+
+  useEffect(() => {
+    if (calories > 800) {
+      setIsSpecial(true);
+    } else {
+      setIsSpecial(false);
+    }
+  }, [calories]);
 
   const handleSave = async () => {
     if (!description || !calories || !date) {
@@ -19,7 +30,8 @@ const AddADiet = ({ navigation, route }) => {
     } else if (isNaN(calories)) {
       Alert.alert('Error', 'Calories must be a number');
     } else {
-      const newDiet = { description, calories, date: date.toISOString() };
+      const specialStatus = isSpecial && !tempIsSpecial; 
+      const newDiet = { description, calories, date: date.toISOString(), isSpecial: specialStatus };
       try {
         if (isEditing) {
           await updateInDB(newDiet, 'diets', route.params.item.id);
@@ -83,6 +95,18 @@ const AddADiet = ({ navigation, route }) => {
       />
       <NumberInput label="Calories *" value={calories} onChange={setCalories} />
       <DateComponent date={date} setDate={setDate} />
+      {isEditing && isSpecial && (
+        <View style={styles.checkboxContainer}>
+          <Text style={styles.label}>
+            This item is marked as special. Select the checkbox if you want to mark it as not special.
+          </Text>
+          <Checkbox
+            value={tempIsSpecial}
+            onValueChange={setTempIsSpecial}
+            style={styles.checkbox}
+          />
+        </View>
+      )}
       <ActionButtons onCancel={() => navigation.goBack()} onSave={handleSave} />
     </View>
   );
@@ -94,6 +118,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 16,
+    marginLeft: 8,
+    flex: 1,
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
   },
 });
 

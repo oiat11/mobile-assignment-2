@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Alert, Button, TouchableOpacity, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Alert, TouchableOpacity, Text } from 'react-native';
+import Checkbox from 'expo-checkbox';
+import { FontAwesome } from '@expo/vector-icons';
 import ActivityType from './ActivityType';
 import DateComponent from './DateComponent';
 import ActionButtons from './ActionButtons';
-import NumberInput from '../Components/NumberInput'; 
+import NumberInput from './NumberInput';
 import { writeToDB, updateInDB, deleteDocument } from '../Firebase/firestoreHelper';
-import { FontAwesome } from '@expo/vector-icons';
 
 const AddAnActivity = ({ navigation, route }) => {
   const [activityType, setActivityType] = useState(route?.params?.item?.activityType || '');
   const [duration, setDuration] = useState(route?.params?.item?.duration || '');
   const [date, setDate] = useState(route?.params?.item?.date ? new Date(route.params.item.date) : null);
+  const [isSpecial, setIsSpecial] = useState(route?.params?.item?.isSpecial || false);
+  const [tempIsSpecial, setTempIsSpecial] = useState(false); 
   const isEditing = !!route?.params?.item;
+
+  useEffect(() => {
+    if (duration > 100) {
+      setIsSpecial(true);
+    } else {
+      setIsSpecial(false);
+    }
+  }, [duration]);
 
   const handleSave = async () => {
     if (!activityType || !duration || !date) {
@@ -19,7 +30,8 @@ const AddAnActivity = ({ navigation, route }) => {
     } else if (isNaN(duration)) {
       Alert.alert('Error', 'Duration must be a number');
     } else {
-      const newActivity = { activityType, duration, date: date.toISOString() };
+      const specialStatus = isSpecial && !tempIsSpecial;
+      const newActivity = { activityType, duration, date: date.toISOString(), isSpecial: specialStatus };
       try {
         if (isEditing) {
           await updateInDB(newActivity, 'activities', route.params.item.id);
@@ -79,6 +91,18 @@ const AddAnActivity = ({ navigation, route }) => {
       <ActivityType activityType={activityType} setActivityType={setActivityType} />
       <NumberInput label="Duration (min) *" value={duration} onChange={setDuration} />
       <DateComponent date={date} setDate={setDate} />
+      {isEditing && isSpecial && (
+        <View style={styles.checkboxContainer}>
+          <Text style={styles.label}>
+            This item is marked as special. Select the checkbox if you want to mark it as not special.
+          </Text>
+          <Checkbox
+            value={tempIsSpecial}
+            onValueChange={setTempIsSpecial}
+            style={styles.checkbox}
+          />
+        </View>
+      )}
       <ActionButtons onCancel={() => navigation.goBack()} onSave={handleSave} />
     </View>
   );
@@ -90,6 +114,20 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 8,
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
   },
 });
 
