@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, TextInput } from 'react-native';
 
-const Duration = ({duration, setDuration}) => {
-
+const NumberInput = ({ label, value, onChange }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Duration (min) *</Text>
+      <Text style={styles.label}>{label}</Text>
       <TextInput
         style={styles.input}
-        value={duration}
-        onChangeText={setDuration}
+        value={value}
+        onChangeText={onChange}
         keyboardType="numeric"
       />
     </View>
@@ -35,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Duration;
+export default NumberInput;

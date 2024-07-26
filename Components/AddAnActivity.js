@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import ActivityType from './ActivityType';
-import Duration from './Duration';
 import DateComponent from './DateComponent';
-import CustomButton from './CustomButton';
+import CustomButton from '../Components/CustomButton';
+import NumberInput from '../Components/NumberInput'; 
 import { writeToDB } from '../Firebase/firestoreHelper';
 
 const AddAnActivity = ({ navigation }) => {
@@ -32,10 +32,10 @@ const AddAnActivity = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ActivityType activityType={activityType} setActivityType={setActivityType} />
-      <Duration duration={duration} setDuration={setDuration} />
+      <NumberInput label="Duration (min) *" value={duration} onChange={setDuration} />
       <DateComponent date={date} setDate={setDate} />
       <View style={styles.buttonContainer}>
-        <CustomButton title="Cancel" onPress={() => navigation.goBack()}  style={[styles.button, styles.cancelButton]} />
+        <CustomButton title="Cancel" onPress={() => navigation.goBack()} style={[styles.button, styles.cancelButton]} />
         <CustomButton title="Save" onPress={handleSave} style={[styles.button, styles.saveButton]} />
       </View>
     </View>
