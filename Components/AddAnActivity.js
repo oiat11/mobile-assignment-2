@@ -47,12 +47,24 @@ const AddAnActivity = ({ navigation, route }) => {
     }
   };
 
+  const confirmDelete = () => {
+    Alert.alert(
+      'Delete',
+      'Are you sure you want to delete this activity?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'OK', onPress: handleDelete },
+      ],
+      { cancelable: false }
+    );
+  };
+
   React.useLayoutEffect(() => {
     if (isEditing) {
       navigation.setOptions({
         title: 'Edit',
         headerRight: () => (
-          <TouchableOpacity onPress={handleDelete} style={{ marginRight: 10 }}>
+          <TouchableOpacity onPress={confirmDelete} style={{ marginRight: 10 }}>
             <FontAwesome name="trash-o" size={24} color="black" />
           </TouchableOpacity>
         ),

@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert, Button, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
 import CustomTextInput from '../Components/CustomTextInput';
 import NumberInput from '../Components/NumberInput';
 import DateComponent from '../Components/DateComponent';
 import ActionButtons from '../Components/ActionButtons';
 import { writeToDB, updateInDB, deleteDocument } from '../Firebase/firestoreHelper';
-import { FontAwesome } from '@expo/vector-icons';
 
 const AddADiet = ({ navigation, route }) => {
   const [description, setDescription] = useState(route?.params?.item?.description || '');
@@ -47,12 +47,24 @@ const AddADiet = ({ navigation, route }) => {
     }
   };
 
+  const confirmDelete = () => {
+    Alert.alert(
+      'Delete',
+      'Are you sure you want to delete this diet?',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        { text: 'OK', onPress: handleDelete },
+      ],
+      { cancelable: false }
+    );
+  };
+
   React.useLayoutEffect(() => {
     if (isEditing) {
       navigation.setOptions({
         title: 'Edit',
         headerRight: () => (
-          <TouchableOpacity onPress={handleDelete} style={{ marginRight: 10 }}>
+          <TouchableOpacity onPress={confirmDelete} style={{ marginRight: 10 }}>
             <FontAwesome name="trash-o" size={24} color="black" />
           </TouchableOpacity>
         ),
