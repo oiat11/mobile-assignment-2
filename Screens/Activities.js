@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { collection, onSnapshot } from 'firebase/firestore';
-import { database } from '../Firebase/firebaseSetup'; // Ensure correct import
+import { database } from '../Firebase/firebaseSetup';
 import ItemsList from '../Components/ItemsList';
 
-export default function Activities({ route }) {
+export default function Activities({ navigation }) {
   const [activities, setActivities] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Activities({ route }) {
       <FlatList
         data={activities}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <ItemsList item={item} />}
+        renderItem={({ item }) => <ItemsList item={item} navigation={navigation} />}
       />
     </View>
   );

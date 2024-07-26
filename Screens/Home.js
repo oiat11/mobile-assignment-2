@@ -2,12 +2,12 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { MaterialIcons, FontAwesome5, FontAwesome, Entypo } from '@expo/vector-icons';
-import { TouchableOpacity, View, StyleSheet } from 'react-native';
 import Diet from './Diet'; 
 import Activities from './Activities'; 
 import Settings from './Settings'; 
 import AddAnActivity from '../Components/AddAnActivity';
 import AddADiet from '../Components/AddADiet'; 
+import { TouchableOpacity, View, StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -22,7 +22,7 @@ function DietStack() {
           title: 'Diet',
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('Add A Diet')}
+              onPress={() => navigation.navigate('AddADiet')}
               style={{ marginRight: 10 }}
             >
               <View style={styles.addButton}>
@@ -33,7 +33,12 @@ function DietStack() {
           ),
         })}
       />
-      <Stack.Screen name="Add A Diet" component={AddADiet} />
+      <Stack.Screen name="AddADiet" component={AddADiet} />
+      <Stack.Screen 
+        name="EditADiet" 
+        component={AddADiet} 
+        options={{ title: 'Edit' }} 
+      />
     </Stack.Navigator>
   );
 }
@@ -48,7 +53,7 @@ function ActivitiesStack() {
           title: 'Activities',
           headerRight: () => (
             <TouchableOpacity
-              onPress={() => navigation.navigate('Add An Activity')}
+              onPress={() => navigation.navigate('AddAnActivity')}
               style={{ marginRight: 10 }}
             >
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -59,7 +64,12 @@ function ActivitiesStack() {
           ),
         })}
       />
-      <Stack.Screen name="Add An Activity" component={AddAnActivity} />
+      <Stack.Screen name="AddAnActivity" component={AddAnActivity} />
+      <Stack.Screen 
+        name="EditAnActivity" 
+        component={AddAnActivity} 
+        options={{ title: 'Edit' }} 
+      />
     </Stack.Navigator>
   );
 }

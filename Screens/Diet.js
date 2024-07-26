@@ -4,7 +4,7 @@ import { collection, onSnapshot } from 'firebase/firestore';
 import { database } from '../Firebase/firebaseSetup';
 import ItemsList from '../Components/ItemsList';
 
-export default function Diet() {
+export default function Diet({ navigation }) {
   const [diets, setDiets] = useState([]);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Diet() {
       <FlatList
         data={diets}
         keyExtractor={item => item.id}
-        renderItem={({ item }) => <ItemsList item={item} />}
+        renderItem={({ item }) => <ItemsList item={item} navigation={navigation} />}
       />
     </View>
   );

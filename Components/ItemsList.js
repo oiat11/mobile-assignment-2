@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Pressable, navigation } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 
-const ItemsList = ({ item }) => {
+const ItemsList = ({ item, navigation }) => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const options = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
@@ -11,17 +11,24 @@ const ItemsList = ({ item }) => {
 
   const isSpecial = item.duration > 60 || (item.calories && item.calories > 800);
 
+  const handlePress = () => {
+    const screen = item.activityType ? 'EditAnActivity' : 'EditADiet';
+    navigation.navigate(screen, { item });
+  };
+
   return (
-    <View style={styles.itemContainer}>
-      {item.activityType && <Text style={styles.activityType}>{item.activityType || 'Diet'}</Text>}
-      {item.description && <Text style={styles.descriptionText}>{item.description}</Text>}
-      {isSpecial && (
-        <FontAwesome name="exclamation-triangle" size={20} color="yellow" style={styles.icon} />
-      )}
-      <Text style={styles.dateText}>{formatDate(item.date)}</Text>
-      {item.duration && <Text style={styles.durationText}>{item.duration} min</Text>}
-      {item.calories && <Text style={styles.durationText}>{item.calories} kcal</Text>}
-    </View>
+    <Pressable onPress={handlePress}>
+      <View style={styles.itemContainer}>
+        <Text style={styles.activityType}>{item.activityType || 'Diet'}</Text>
+        {isSpecial && (
+          <FontAwesome name="exclamation-triangle" size={20} color="yellow" style={styles.icon} />
+        )}
+        <Text style={styles.dateText}>{formatDate(item.date)}</Text>
+        {item.duration && <Text style={styles.durationText}>{item.duration} min</Text>}
+        {item.calories && <Text style={styles.durationText}>{item.calories} kcal</Text>}
+        {item.description && <Text style={styles.descriptionText}>{item.description}</Text>}
+      </View>
+    </Pressable>
   );
 };
 
