@@ -186,6 +186,30 @@ export const commonStyles = StyleSheet.create({
     fontSize: typography.fontSizeMedium,
     fontWeight: typography.fontWeightBold,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: '100%',
+    padding: spacing.medium,
+  },
+  buttonCancel: {
+    backgroundColor: colors.red,
+    width: '45%', 
+    alignItems: 'center',
+    padding: spacing.small,
+    borderRadius: 5,
+  },
+  buttonSave: {
+    backgroundColor: colors.blue,
+    width: '45%', 
+    alignItems: 'center',
+    padding: spacing.small,
+    borderRadius: 5,
+  },
+  text: {
+    color: colors.white,
+    fontWeight: typography.fontWeightBold,
+  },
 });
 
 export default {

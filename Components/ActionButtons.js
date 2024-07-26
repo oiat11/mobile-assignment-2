@@ -1,56 +1,27 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import CustomPressable from './CustomPressable';
+import { commonStyles } from './styles';
 
 const ActionButtons = ({ onCancel, onSave }) => {
   return (
-    <View style={styles.buttonContainer}>
+    <View style={commonStyles.buttonContainer}>
       <CustomPressable
         onPress={onCancel}
-        style={styles.buttonCancel}
-        pressedStyle={styles.buttonPressed}
+        style={commonStyles.buttonCancel}
+        pressedStyle={commonStyles.pressed}
       >
-        <Text style={styles.text}>Cancel</Text>
+        <Text style={commonStyles.text}>Cancel</Text>
       </CustomPressable>
       <CustomPressable
         onPress={onSave}
-        style={styles.buttonSave}
-        pressedStyle={styles.buttonPressed}
+        style={commonStyles.buttonSave}
+        pressedStyle={commonStyles.pressed}
       >
-        <Text style={styles.text}>Save</Text>
+        <Text style={commonStyles.text}>Save</Text>
       </CustomPressable>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    width: '100%',
-    padding: 16,
-  },
-  buttonCancel: {
-    backgroundColor: 'red',
-    width: '45%', 
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonSave: {
-    backgroundColor: 'blue',
-    width: '45%', 
-    alignItems: 'center',
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonPressed: {
-    backgroundColor: '#ddd',
-  },
-  text: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
 
 export default ActionButtons;
