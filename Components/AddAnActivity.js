@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
 import ActivityType from './ActivityType';
 import DateComponent from './DateComponent';
 import ActionButtons from './ActionButtons';
 import NumberInput from '../Components/NumberInput'; 
-import { writeToDB } from '../Firebase/firestoreHelper';
+import { writeToDB, updateInDB } from '../Firebase/firestoreHelper';
 
-const AddAnActivity = ({ navigation }) => {
-  const [activityType, setActivityType] = React.useState(null);
-  const [duration, setDuration] = React.useState('');
-  const [date, setDate] = React.useState(null);
+const AddAnActivity = ({ navigation, route }) => {
+  const [activityType, setActivityType] = useState(route?.params?.item?.activityType || null);
+  const [duration, setDuration] = useState(route?.params?.item?.duration || '');
+  const [date, setDate] = useState(route?.params?.item?.date ? new Date(route.params.item.date) : null);
+  const isEditing = !!route?.params?.item;
 
   const handleSave = async () => {
     if (!activityType || !duration || !date) {
@@ -19,12 +20,17 @@ const AddAnActivity = ({ navigation }) => {
     } else {
       const newActivity = { activityType, duration, date: date.toISOString() };
       try {
-        await writeToDB(newActivity, 'activities');
-        Alert.alert('Success', 'Activity added successfully');
+        if (isEditing) {
+          await updateInDB(newActivity, 'activities', route.params.item.id);
+          Alert.alert('Success', 'Activity updated successfully');
+        } else {
+          await writeToDB(newActivity, 'activities');
+          Alert.alert('Success', 'Activity added successfully');
+        }
         navigation.navigate('ActivitiesScreen');
       } catch (error) {
-        console.error('Error adding activity: ', error);
-        Alert.alert('Error', 'There was an error adding the activity');
+        console.error('Error saving activity: ', error);
+        Alert.alert('Error', 'There was an error saving the activity');
       }
     }
   };
@@ -45,21 +51,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     padding: 16,
-  },
-  buttonContainer: {
-    padding: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    width: '100%',
-  },
-  button: {
-    width: '40%',
-  },
-  cancelButton: {
-    backgroundColor: 'red',
-  },
-  saveButton: {
-    backgroundColor: 'blue',
   },
 });
 
