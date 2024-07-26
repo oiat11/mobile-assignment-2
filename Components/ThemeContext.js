@@ -1,18 +1,19 @@
 import React, { createContext, useState, useContext } from 'react';
+import { colors } from './styles';
 
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState({
-    background: '#f7f0f0', 
-    text: '#000', 
-    header: '#18a999', 
+    background: colors.snow, 
+    text: colors.black, 
+    header: colors.persianGreen, 
   });
 
   const toggleTheme = () => {
     setTheme((prevTheme) => ({
       ...prevTheme,
-      header: prevTheme.header === '#18a999' ? '#109648' : '#18a999', 
+      header: prevTheme.header === colors.persianGreen ? colors.shamrockGreen : colors.persianGreen, 
     }));
   };
 

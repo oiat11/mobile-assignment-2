@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Alert, Text } from 'react-native';
+import { View, Alert, Text } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { FontAwesome } from '@expo/vector-icons';
 import ActivityType from './ActivityType';
@@ -8,6 +8,7 @@ import ActionButtons from './ActionButtons';
 import NumberInput from './NumberInput';
 import { writeToDB, updateInDB, deleteDocument } from '../Firebase/firestoreHelper';
 import CustomPressable from './CustomPressable';
+import { commonStyles } from './styles';
 
 const AddAnActivity = ({ navigation, route }) => {
   const [activityType, setActivityType] = useState(route?.params?.item?.activityType || '');
@@ -29,7 +30,7 @@ const AddAnActivity = ({ navigation, route }) => {
     if (isEditing && route?.params?.item?.isSpecial) {
       setShowCheckbox(true);
     }
-  } , [isEditing]);
+  }, [isEditing]);
 
   const handleSave = async () => {
     if (!activityType || !duration || !date) {
@@ -56,8 +57,8 @@ const AddAnActivity = ({ navigation, route }) => {
 
   const confirmSave = () => {
     Alert.alert(
-      'Importent',
-      'Are you sure you want to save these change?',
+      'Important',
+      'Are you sure you want to save these changes?',
       [
         { text: 'Cancel', style: 'cancel' },
         { text: 'OK', onPress: handleSave },
@@ -94,7 +95,7 @@ const AddAnActivity = ({ navigation, route }) => {
       navigation.setOptions({
         title: 'Edit',
         headerRight: () => (
-          <CustomPressable onPress={confirmDelete} style={{ marginRight: 10 }}>
+          <CustomPressable onPress={confirmDelete} style={commonStyles.headerRight} pressedStyle={commonStyles.pressed}>
             <FontAwesome name="trash-o" size={24} color="black" />
           </CustomPressable>
         ),
@@ -105,48 +106,25 @@ const AddAnActivity = ({ navigation, route }) => {
   }, [navigation, isEditing]);
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.container}>
       <ActivityType activityType={activityType} setActivityType={setActivityType} />
       <NumberInput label="Duration (min) *" value={duration} onChange={setDuration} />
       <DateComponent date={date} setDate={setDate} />
       {isEditing && showCheckbox && (
-        <View style={styles.checkboxContainer}>
-          <Text style={styles.label}>
+        <View style={commonStyles.checkboxContainer}>
+          <Text style={commonStyles.label}>
             This item is marked as special. Select the checkbox if you want to mark it as not special.
           </Text>
           <Checkbox
             value={!isSpecial}
             onValueChange={() => setIsSpecial(!isSpecial)}
-            style={styles.checkbox}
+            style={commonStyles.checkbox}
           />
         </View>
       )}
-      <ActionButtons onCancel={() => navigation.goBack()}  onSave={isEditing ? confirmSave : handleSave} />
+      <ActionButtons onCancel={() => navigation.goBack()} onSave={isEditing ? confirmSave : handleSave} />
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 16,
-  },
-  checkboxContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 16,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginLeft: 8,
-  },
-  checkbox: {
-    width: 24,
-    height: 24,
-  },
-});
 
 export default AddAnActivity;

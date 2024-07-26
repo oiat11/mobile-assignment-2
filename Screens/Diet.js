@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, FlatList } from 'react-native';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { database } from '../Firebase/firebaseSetup';
 import ItemsList from '../Components/ItemsList';
+import { commonStyles } from '../Components/styles';
 
 export default function Diet({ navigation }) {
   const [diets, setDiets] = useState([]);
@@ -20,7 +21,7 @@ export default function Diet({ navigation }) {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={commonStyles.flatListContainer}>
       <FlatList
         data={diets}
         keyExtractor={item => item.id}
@@ -29,10 +30,3 @@ export default function Diet({ navigation }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-});

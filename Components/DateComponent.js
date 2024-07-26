@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import CustomPressable from './CustomPressable'; 
+import { commonStyles } from './styles'; 
 
 const DateComponent = ({ date, setDate }) => {
   const [show, setShow] = useState(false);
@@ -16,13 +18,13 @@ const DateComponent = ({ date, setDate }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>Date *</Text>
-      <TouchableOpacity onPress={toggleDatepicker}>
-        <View style={styles.input}>
+    <View style={commonStyles.dateContainer}>
+      <Text style={commonStyles.dateLabel}>Date *</Text>
+      <CustomPressable onPress={toggleDatepicker} style={commonStyles.dateInput} pressedStyle={commonStyles.pressedStyle}>
+        <View>
           {date && <Text>{date.toLocaleDateString()}</Text>}
         </View>
-      </TouchableOpacity>
+      </CustomPressable>
       {show && (
         <DateTimePicker
           testID="dateTimePicker"
@@ -35,25 +37,5 @@ const DateComponent = ({ date, setDate }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 16,
-    width: '100%',
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  input: {
-    height: 40,
-    borderColor: 'black',
-    borderWidth: 1,
-    justifyContent: 'center',
-    paddingLeft: 10,
-    borderRadius: 5,
-  },
-});
 
 export default DateComponent;

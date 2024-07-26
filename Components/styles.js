@@ -48,9 +48,10 @@ export const commonStyles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: colors.jet,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    padding: spacing.medium,
+    backgroundColor: colors.snow,
   },
   textPrimary: {
     color: colors.jet,
@@ -77,7 +78,7 @@ export const commonStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.black,
     borderRadius: 5,
-    marginBottom: spacing.medium,
+    marginBottom: spacing.medium, // 确保每个itemContainer之间有间隔
   },
   contentContainer: {
     flexDirection: 'row',
@@ -99,6 +100,91 @@ export const commonStyles = StyleSheet.create({
   },
   icon: {
     marginHorizontal: spacing.small,
+  },
+  dropdownContainer: {
+    marginBottom: spacing.medium,
+    width: '100%',
+    zIndex: 1000,
+  },
+  dropdownLabel: {
+    marginBottom: spacing.small,
+    fontSize: typography.fontSizeMedium,
+    fontWeight: typography.fontWeightBold,
+  },
+  dropdown: {
+    backgroundColor: colors.snow,
+  },
+  dropdownContainerStyle: {
+    maxHeight: 300,
+    backgroundColor: colors.snow,
+  },
+  dropdownLabelStyle: {
+    color: colors.black,
+  },
+  checkboxContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: spacing.medium,
+  },
+  label: {
+    fontSize: typography.fontSizeMedium,
+    marginLeft: spacing.small,
+    flex: 1,
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
+  },
+  dateContainer: {
+    marginBottom: spacing.medium,
+    width: '100%',
+  },
+  dateLabel: {
+    fontSize: typography.fontSizeMedium,
+    fontWeight: typography.fontWeightBold,
+    marginBottom: spacing.small,
+  },
+  dateInput: {
+    height: 40,
+    borderColor: colors.black,
+    borderWidth: 1,
+    justifyContent: 'center',
+    paddingLeft: spacing.small,
+    borderRadius: 5,
+  },
+  inputContainer: {
+    marginBottom: spacing.medium,
+    width: '100%',
+  },
+  inputLabel: {
+    fontSize: typography.fontSizeMedium,
+    fontWeight: typography.fontWeightBold,
+    marginBottom: spacing.small,
+  },
+  input: {
+    height: 40,
+    borderColor: colors.black,
+    borderWidth: 1,
+    paddingLeft: spacing.small,
+    borderRadius: 5,
+  },
+  flatListContainer: {
+    flex: 1,
+    padding: spacing.medium,
+  },
+  settingsContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  settingsHeading: {
+    fontSize: typography.fontSizeLarge,
+    fontWeight: typography.fontWeightBold,
+    marginBottom: spacing.large,
+  },
+  settingsButtonText: {
+    fontSize: typography.fontSizeMedium,
+    fontWeight: typography.fontWeightBold,
   },
 });
 

@@ -1,12 +1,13 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
+import { commonStyles } from './styles';
 
 const CustomTextInput = ({ label, value, onChange, placeholder, keyboardType = 'default', style, labelStyle, inputStyle }) => {
   return (
-    <View style={[styles.container, style]}>
-      {label && <Text style={[styles.label, labelStyle]}>{label}</Text>}
+    <View style={[commonStyles.inputContainer, style]}>
+      {label && <Text style={[commonStyles.inputLabel, labelStyle]}>{label}</Text>}
       <TextInput
-        style={[styles.input, inputStyle]}
+        style={[commonStyles.input, inputStyle]}
         value={value}
         onChangeText={onChange}
         placeholder={placeholder}
@@ -18,24 +19,5 @@ const CustomTextInput = ({ label, value, onChange, placeholder, keyboardType = '
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: 16,
-    width: '100%',
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  input: {
-    height: 100,
-    borderColor: 'black',
-    borderWidth: 1,
-    paddingLeft: 10,
-    borderRadius: 5,
-  },
-});
 
 export default CustomTextInput;
