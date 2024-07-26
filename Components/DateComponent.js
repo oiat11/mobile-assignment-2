@@ -17,7 +17,7 @@ const DateComponent = ({ date, setDate }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.label}>Date</Text>
+      <Text style={styles.label}>Date *</Text>
       <TouchableOpacity onPress={toggleDatepicker}>
         <View style={styles.input}>
           {date && <Text>{date.toLocaleDateString()}</Text>}

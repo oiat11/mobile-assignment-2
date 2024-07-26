@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import CustomTextInput from '../Components/CustomTextInput';
 import NumberInput from './NumberInput';
+import DateComponent from './DateComponent';
 
 
 const AddADiet = ({ navigation }) => {
   const [description, setDescription] = useState('');
   const [calories, setCalories] = useState('');
+  const [date, setDate] = React.useState(null);
 
   return (
     <View style={styles.container}>
@@ -16,7 +18,7 @@ const AddADiet = ({ navigation }) => {
         onChange={setDescription}
       />
       <NumberInput label="Calories *" value={calories} onChange={setCalories}/>
-      
+      <DateComponent date={date} setDate={setDate} />
     </View>
   );
 };
