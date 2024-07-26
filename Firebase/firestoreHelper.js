@@ -1,0 +1,30 @@
+import { addDoc, collection, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { database } from "./firebaseSetup";
+
+export async function writeToDB(data, collectionName) {
+    try{
+    const docId = await addDoc(collection(database, collectionName), data);
+    console.log('Document written with ID: ', docId.id);
+    } catch(err) {
+        console.error('write to db ', err);
+    }
+}
+
+export async function updateInDB(data, collectionName, docId) {
+    try {
+      const docRef = doc(database, collectionName, docId);
+      await updateDoc(docRef, data);
+      console.log('Document updated with ID: ', docId);
+    } catch (err) {
+      console.error('Error updating document: ', err);
+    }
+  }
+
+export async function deleteDocument(collectionName, docId) {
+    try {
+      await deleteDoc(doc(database, collectionName, docId));
+      console.log('Document deleted with ID: ', docId);
+    } catch (err) {
+      console.error('Error deleting document: ', err);
+    }
+  }
