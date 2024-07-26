@@ -11,6 +11,9 @@ const CustomTextInput = ({ label, value, onChange, placeholder, keyboardType = '
         onChangeText={onChange}
         placeholder={placeholder}
         keyboardType={keyboardType}
+        multiline={true}
+        textAlignVertical="top"
+        textAlign="left"
       />
     </View>
   );
